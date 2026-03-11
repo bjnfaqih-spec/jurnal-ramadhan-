@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jurnal Ramadhan Digital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Amiri&display=swap');
+        
+        body {
+            font-family: 'Plus+Jakarta+Sans', sans-serif;
+            background-color: #f8fafc;
+        }
+
+        .nav-active {
+            color: #15803d;
+            border-bottom: 2px solid #15803d;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .checkbox-custom:checked + label {
+            background-color: #dcfce7;
+            border-color: #22c55e;
+            color: #166534;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            line-height: 2.2;
+        }
+    </style>
+</head>
+<body class="pb-24 md:pb-8">
+
+    <!-- Header -->
+    <header class="bg-white border-b sticky top-0 z-50">
+        <div class="max-w-4xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="bg-green-700 p-2 rounded-lg text-white shadow-md">
+                    <i class="fas fa-moon text-xl"></i>
+                </div>
+                <h1 class="text-xl font-bold text-gray-800 tracking-tight">Jurnal Ramadhan</h1>
+            </div>
+            <div id="current-date" class="text-sm font-medium text-green-700 bg-green-50 px-3 py-1 rounded-full border border-green-100">
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-4xl mx-auto p-4 mt-2">
+        
+        <!-- Tabs / Menu -->
+        <nav class="flex justify-around bg-white p-2 rounded-2xl mb-6 card-shadow border border-gray-100 overflow-x-auto sticky top-[73px] z-40">
+            <button onclick="switchTab('jurnal')" id="btn-jurnal" class="nav-active flex flex-col items-center py-2 px-4 transition-all duration-300">
+                <i class="fas fa-calendar-check mb-1"></i>
+                <span class="text-xs font-semibold">Jurnal</span>
+            </button>
+            <button onclick="switchTab('doa')" id="btn-doa" class="text-gray-400 flex flex-col items-center py-2 px-4 transition-all duration-300">
+                <i class="fas fa-hands-praying mb-1"></i>
+                <span class="text-xs font-semibold">Doa</span>
+            </button>
+            <button onclick="switchTab('event')" id="btn-event" class="text-gray-400 flex flex-col items-center py-2 px-4 transition-all duration-300">
+                <i class="fas fa-star-and-crescent mb-1"></i>
+                <span class="text-xs font-semibold">Event</span>
+            </button>
+        </nav>
+
+        <!-- Section 1: Jurnal Ibadah -->
+        <div id="tab-jurnal" class="space-y-6">
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <h2 class="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
+                    <span class="w-1.5 h-6 bg-green-600 rounded-full"></span>
+                    Checklist Ibadah Harian
+                </h2>
+                
+                <div class="space-y-4">
+                    <!-- Sholat Fardhu -->
+                    <div class="border-b pb-4">
+                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Sholat Fardhu</h3>
+                        <div class="grid grid-cols-5 gap-2">
+                            <input type="checkbox" id="sholat-subuh" class="hidden checkbox-custom">
+                            <label for="sholat-subuh" class="border rounded-xl p-2 text-center text-[10px] md:text-xs font-medium cursor-pointer transition-all border-gray-200">Subuh</label>
+                            <input type="checkbox" id="sholat-dzuhur" class="hidden checkbox-custom">
+                            <label for="sholat-dzuhur" class="border rounded-xl p-2 text-center text-[10px] md:text-xs font-medium cursor-pointer transition-all border-gray-200">Dzuhur</label>
+                            <input type="checkbox" id="sholat-ashar" class="hidden checkbox-custom">
+                            <label for="sholat-ashar" class="border rounded-xl p-2 text-center text-[10px] md:text-xs font-medium cursor-pointer transition-all border-gray-200">Ashar</label>
+                            <input type="checkbox" id="sholat-maghrib" class="hidden checkbox-custom">
+                            <label for="sholat-maghrib" class="border rounded-xl p-2 text-center text-[10px] md:text-xs font-medium cursor-pointer transition-all border-gray-200">Maghrib</label>
+                            <input type="checkbox" id="sholat-isya" class="hidden checkbox-custom">
+                            <label for="sholat-isya" class="border rounded-xl p-2 text-center text-[10px] md:text-xs font-medium cursor-pointer transition-all border-gray-200">Isya</label>
+                        </div>
+                    </div>
+
+                    <!-- Ibadah Sunnah -->
+                    <div class="border-b pb-4">
+                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3 text-left">Sunnah & Malam</h3>
+                        <div class="grid grid-cols-2 gap-3">
+                            <div class="flex items-center gap-2 bg-slate-50 p-3 rounded-2xl border border-gray-200">
+                                <input type="checkbox" id="tahajud" class="w-5 h-5 accent-green-600 cursor-pointer">
+                                <label for="tahajud" class="text-sm font-medium cursor-pointer">Sholat Tahajud</label>
+                            </div>
+                            <div class="flex items-center gap-2 bg-slate-50 p-3 rounded-2xl border border-gray-200">
+                                <input type="checkbox" id="dhuha" class="w-5 h-5 accent-green-600 cursor-pointer">
+                                <label for="dhuha" class="text-sm font-medium cursor-pointer">Sholat Dhuha</label>
+                            </div>
+                            <div class="flex items-center gap-2 bg-slate-50 p-3 rounded-2xl border border-gray-200">
+                                <input type="checkbox" id="tarawih" class="w-5 h-5 accent-green-600 cursor-pointer">
+                                <label for="tarawih" class="text-sm font-medium cursor-pointer">Sholat Tarawih</label>
+                            </div>
+                            <div class="flex items-center gap-2 bg-slate-50 p-3 rounded-2xl border border-gray-200">
+                                <input type="checkbox" id="witir" class="w-5 h-5 accent-green-600 cursor-pointer">
+                                <label for="witir" class="text-sm font-medium cursor-pointer">Sholat Witir</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tadarus -->
+                    <div>
+                        <h3 class="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Tadarus Al-Qur'an</h3>
+                        <div class="bg-green-50 p-4 rounded-2xl">
+                            <div class="flex justify-between items-center mb-2">
+                                <span class="text-sm font-medium text-green-800">Target Hari Ini</span>
+                                <span id="last-read-display" class="text-[10px] text-green-600 bg-white px-2 py-0.5 rounded-full shadow-sm transition-all duration-300">Terakhir: Belum ada</span>
+                            </div>
+                            <div class="flex gap-2">
+                                <input type="text" id="tadarus-input" placeholder="Surat & Ayat hari ini..." class="w-full bg-white border border-green-200 rounded-xl px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition-all">
+                                <button onclick="saveTadarus()" class="bg-green-700 text-white px-4 py-2 rounded-xl text-sm font-semibold hover:bg-green-800 transition-colors shadow-sm active:scale-95">Simpan</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Quote of the Day -->
+            <div class="bg-gradient-to-br from-green-800 to-green-950 p-6 rounded-3xl text-white shadow-lg relative overflow-hidden">
+                <i class="fas fa-quote-left text-white/10 text-6xl absolute -top-2 -left-2"></i>
+                <div class="relative z-10">
+                    <p class="italic font-light mb-3 text-lg leading-relaxed">"Barangsiapa yang berpuasa Ramadhan kerana iman dan mengharap pahala, maka diampuni dosa-dosanya yang telah lalu."</p>
+                    <p class="text-xs text-green-300 font-bold tracking-widest uppercase">— HR. Bukhari & Muslim</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Doa Harian -->
+        <div id="tab-doa" class="hidden space-y-4">
+            <h2 class="text-lg font-bold text-gray-800 mb-2 px-2 flex items-center gap-2">
+                <i class="fas fa-book-heart text-green-600"></i> Kumpulan Doa Pilihan
+            </h2>
+            
+            <!-- Niat Puasa -->
+            <div class="bg-gradient-to-r from-amber-50 to-orange-50 p-6 rounded-3xl card-shadow border border-amber-100">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-amber-600 text-white text-[10px] font-bold px-3 py-1 rounded-full uppercase tracking-tighter">Wajib</span>
+                    <i class="fas fa-sun text-amber-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-amber-900 mb-3">Niat Berpuasa Ramadhan</h3>
+                <p class="text-right text-2xl arabic-text text-gray-800 mb-4" dir="rtl">نَوَيْتُ صَوْمَ غَدٍ عَنْ أَدَاءِ فَرْضِ شَهْرِ رَمَضَانَ هَذِهِ السَّنَةِ لِلَّهِ تَعَالَى</p>
+                <p class="text-xs text-amber-700 mb-2 italic font-medium">"Nawaitu souma ghadin 'an ada'i fardhi syahri ramadhana hadzihis sanati lillahi ta'ala"</p>
+                <p class="text-sm text-gray-700 leading-relaxed">"Sahaja aku berpuasa esok hari untuk menunaikan fardhu bulan Ramadhan tahun ini kerana Allah Ta'ala."</p>
+            </div>
+
+            <!-- Doa Ampunan -->
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-green-100 text-green-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Ampunan</span>
+                    <i class="fas fa-cloud-sun text-green-300"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Doa Memohon Ampunan</h3>
+                <p class="text-right text-2xl arabic-text text-gray-800 mb-4" dir="rtl">اللَّهُمَّ إِنَّكَ عَفُوٌّ تُحِبُّ الْعَفْوَ فَاعْفُ عَنِّي</p>
+                <p class="text-xs text-gray-500 mb-2 italic">"Allahumma innaka 'afuwwun tuhibbul 'afwa fa'fu 'anni"</p>
+                <p class="text-sm text-gray-700">"Ya Allah, sesungguhnya Engkau Maha Pengampun dan menyukai pengampunan, maka ampunilah aku."</p>
+            </div>
+
+            <!-- Doa Keselamatan -->
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-blue-100 text-blue-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Perlindungan</span>
+                    <i class="fas fa-shield-alt text-blue-300"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-3">Doa Keselamatan Dunia Akhirat</h3>
+                <p class="text-right text-2xl arabic-text text-gray-800 mb-4" dir="rtl">رَبَّنَآ اٰتِنَا فِى الدُّنْيَا حَسَنَةً وَّفِى الْاٰخِرَةِ حَسَنَةً وَّقِنَا عَذَابَ النَّارِ</p>
+                <p class="text-xs text-gray-500 mb-2 italic">"Rabbana atina fiddunya hasanah wa fil akhirati hasanah wa qina 'adzaban naar"</p>
+                <p class="text-sm text-gray-700 leading-relaxed">"Wahai Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat, dan peliharalah kami dari azab api neraka."</p>
+            </div>
+
+            <!-- Doa Rezeki -->
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-emerald-100 text-emerald-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Rezeki</span>
+                    <i class="fas fa-wallet text-emerald-400"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-3">Doa Kelancaran Rezeki</h3>
+                <p class="text-right text-2xl arabic-text text-gray-800 mb-4" dir="rtl">اللَّهُمَّ اكْفِنِي بِحَلَالِكَ عَنْ حَرَامِكَ وَأَغْنِنِي بِفَضْلِكَ عَمَّنْ سِوَاكَ</p>
+                <p class="text-xs text-gray-500 mb-2 italic">"Allahummakfinii bihalalika 'an haramika wa aghninii bifadhlika 'amman siwaka"</p>
+                <p class="text-sm text-gray-700 leading-relaxed">"Ya Allah, cukupkanlah aku dengan yang halal daripada yang haram, dan kayakanlah aku dengan kurniaan-Mu daripada selain-Mu."</p>
+            </div>
+
+            <!-- Doa Urusan -->
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-purple-100 text-purple-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Kemudahan</span>
+                    <i class="fas fa-hand-holding-heart text-purple-300"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-3">Doa Dimudahkan Segala Urusan</h3>
+                <p class="text-right text-2xl arabic-text text-gray-800 mb-4" dir="rtl">اللَّهُمَّ لَا سَهْلَ إِلَّا مَا جَعَلْتَهُ سَهْلًا وَأَنْتَ تَجْعَلُ الْحَزْنَ إِذَا شِئْتَ سَهْلًا</p>
+                <p class="text-xs text-gray-500 mb-2 italic">"Allahumma laa sahla illa maa ja'altahu sahla, wa anta taj'alul hazna idza syi'ta sahla"</p>
+                <p class="text-sm text-gray-700 leading-relaxed">"Ya Allah, tiada kemudahan kecuali apa yang Engkau jadikan mudah, dan Engkau menjadikan kesulitan itu mudah jika Engkau kehendaki."</p>
+            </div>
+
+            <!-- Doa Makan -->
+            <div class="bg-white p-6 rounded-3xl card-shadow border border-gray-100">
+                <div class="flex justify-between items-start mb-4">
+                    <span class="bg-orange-100 text-orange-700 text-[10px] font-bold px-3 py-1 rounded-full uppercase">Keseharian</span>
+                    <i class="fas fa-utensils text-orange-300"></i>
+                </div>
+                <h3 class="text-lg font-bold text-gray-800 mb-2">Doa Sebelum Makan</h3>
+                <p class="text-right text-2xl arabic-text text-gray-800 mb-4" dir="rtl">اللَّهُمَّ بَارِكْ لَنَا فِيمَا رَزَقْتَنَا وَقِنَا عَذَابَ النَّارِ</p>
+                <p class="text-xs text-gray-500 mb-1 italic">"Allahumma baarik lanaa fiimaa razaqtanaa waqinaa 'adzaaban naar"</p>
+                <p class="text-sm text-gray-700">"Ya Allah, berkahilah kami atas apa yang Engkau rezekikan kepada kami dan peliharalah kami dari siksa api neraka."</p>
+            </div>
+        </div>
+
+        <!-- Section 3: Event & Amalan -->
+        <div id="tab-event" class="hidden space-y-6">
+            <h2 class="text-lg font-bold text-gray-800 mb-2 px-2">Momentum Istimewa</h2>
+            
+            <div class="relative overflow-hidden bg-white p-6 rounded-3xl card-shadow border-l-4 border-l-green-600">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-800">Nuzulul Qur'an</h3>
+                        <p class="text-sm text-green-700 font-semibold">17 Ramadhan</p>
+                    </div>
+                    <div class="bg-green-50 p-3 rounded-full text-green-600">
+                        <i class="fas fa-book-open text-xl"></i>
+                    </div>
+                </div>
+                <div class="space-y-3 text-sm text-gray-600">
+                    <p>Peringatan turunnya Al-Qur'an pertama kali kepada Nabi Muhammad SAW di Gua Hira.</p>
+                    <div class="bg-slate-50 p-4 rounded-2xl border border-gray-100">
+                        <p class="text-xs font-bold text-gray-400 uppercase mb-3 tracking-widest">Amalan Utama:</p>
+                        <ul class="text-sm text-gray-700 space-y-3">
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-0.5"></i> <span>Khatamkan atau perbanyak bacaan Al-Qur'an</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-0.5"></i> <span>Menghadiri majlis ilmu / tadabbur</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="relative overflow-hidden bg-indigo-950 p-6 rounded-3xl text-white shadow-xl">
+                <div class="absolute top-0 right-0 p-4 opacity-5">
+                    <i class="fas fa-star-and-crescent text-[10rem]"></i>
+                </div>
+                <div class="relative z-10">
+                    <div class="flex justify-between items-start mb-4">
+                        <div>
+                            <h3 class="text-xl font-bold">Malam Lailatul Qadr</h3>
+                            <p class="text-sm text-indigo-300 font-semibold">10 Malam Terakhir</p>
+                        </div>
+                        <div class="bg-white/10 p-3 rounded-full border border-white/20">
+                            <i class="fas fa-cloud-moon text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="bg-white/5 p-4 rounded-2xl border border-white/10 mt-4">
+                        <ul class="text-sm text-indigo-50 space-y-3">
+                            <li class="flex items-start gap-3"><i class="fas fa-moon text-indigo-400 mt-0.5"></i> <span><strong>Qiyamul Lail:</strong> Sholat Tarawih, Tahajjud, & Hajat.</span></li>
+                            <li class="flex items-start gap-3"><i class="fas fa-moon text-indigo-400 mt-0.5"></i> <span><strong>Sedekah:</strong> Lakukan setiap malam walau sedikit.</span></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Navigation Footer (Mobile Only) -->
+    <div class="fixed bottom-4 left-4 right-4 bg-white/90 backdrop-blur-md border border-gray-100 flex justify-around py-3 px-2 rounded-3xl shadow-2xl md:hidden z-50">
+        <button onclick="switchTab('jurnal')" id="nav-jurnal" class="flex flex-col items-center text-green-700 w-full transition-all">
+            <i class="fas fa-th-large text-xl"></i>
+            <span class="text-[10px] font-bold mt-1">Jurnal</span>
+        </button>
+        <button onclick="switchTab('doa')" id="nav-doa" class="flex flex-col items-center text-gray-400 w-full transition-all">
+            <i class="fas fa-hands-praying text-xl"></i>
+            <span class="text-[10px] font-bold mt-1">Doa</span>
+        </button>
+        <button onclick="switchTab('event')" id="nav-event" class="flex flex-col items-center text-gray-400 w-full transition-all">
+            <i class="fas fa-calendar-star text-xl"></i>
+            <span class="text-[10px] font-bold mt-1">Event</span>
+        </button>
+    </div>
+
+    <script>
+        // Variabel memori singkat (hilang saat refresh)
+        let temporaryLastRead = "";
+
+        function updateDate() {
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const today = new Date();
+            document.getElementById('current-date').innerText = today.toLocaleDateString('id-ID', options);
+        }
+
+        function switchTab(tabName) {
+            document.getElementById('tab-jurnal').classList.add('hidden');
+            document.getElementById('tab-doa').classList.add('hidden');
+            document.getElementById('tab-event').classList.add('hidden');
+
+            const buttons = ['jurnal', 'doa', 'event'];
+            buttons.forEach(btn => {
+                document.getElementById('btn-' + btn).classList.remove('nav-active');
+                document.getElementById('btn-' + btn).classList.add('text-gray-400');
+                const mb = document.getElementById('nav-' + btn);
+                if(mb) {
+                    mb.classList.remove('text-green-700');
+                    mb.classList.add('text-gray-400');
+                }
+            });
+
+            document.getElementById('tab-' + tabName).classList.remove('hidden');
+            document.getElementById('btn-' + tabName).classList.add('nav-active');
+            document.getElementById('btn-' + tabName).classList.remove('text-gray-400');
+            const activeMobile = document.getElementById('nav-' + tabName);
+            if(activeMobile) {
+                activeMobile.classList.remove('text-gray-400');
+                activeMobile.classList.add('text-green-700');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Fungsi baru untuk menyimpan tadarus ke memori singkat
+        function saveTadarus() {
+            const input = document.getElementById('tadarus-input');
+            const display = document.getElementById('last-read-display');
+            
+            if (input.value.trim() !== "") {
+                temporaryLastRead = input.value.trim();
+                display.innerText = "Terakhir: " + temporaryLastRead;
+                
+                // Efek visual sukses
+                display.classList.add('bg-green-200', 'scale-110');
+                setTimeout(() => {
+                    display.classList.remove('bg-green-200', 'scale-110');
+                }, 300);
+
+                input.value = ""; // Bersihkan input setelah simpan
+            }
+        }
+
+        window.onload = function() {
+            updateDate();
+            
+            // Checkbox tetap disimpan di localStorage agar user tidak lelah mencentang ulang
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            checkboxes.forEach(cb => {
+                const savedStatus = localStorage.getItem(cb.id);
+                if(savedStatus === 'true') cb.checked = true;
+                cb.addEventListener('change', function() {
+                    localStorage.setItem(this.id, this.checked);
+                });
+            });
+
+            // Bagian Tadarus TIDAK diambil dari localStorage agar reset saat refresh
+            document.getElementById('last-read-display').innerText = "Terakhir: Belum ada";
+        };
+    </script>
+</body>
+</html>
